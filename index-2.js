@@ -37,7 +37,7 @@ const englishUIText = {
   authorLinkedin: "https://www.linkedin.com/in/ibrahimabdelhady/",
   creatorName: "M. Ibrahim Salem",
   creatorLinkedin: "https://www.linkedin.com/in/mohamedibrahims/",
-  openInAIStudio: "Open in Google AI Studio (Copy first!)",
+  openInAIStudio: "Open Google AI Studio (Copy first!)",
 };
 
 const allPrompts = {
