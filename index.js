@@ -2,6 +2,9 @@ const englishUIText = {
   title: "Nano Banana Prompt Builder",
   help: "Help",
   selectMainCategory: "Select a Category",
+  searchPlaceholder: "Search for prompts (e.g., 'villa', 'kitchen', 'CAD')...",
+  noResultsTitle: "No prompts found",
+  noResultsText: "We couldn’t find anything matching your search. Try a different keyword.",
   architecture: "Architecture",
   architectureDesc: "Generate prompts for building exteriors, CAD transformations, and realistic renderings.",
   interiorDesign: "Interior Design",
@@ -27,14 +30,14 @@ const englishUIText = {
   helpStep2Title: "2. Select a Prompt Subcategory",
   helpStep2Desc: "Once in the generator, choose a specific task or prompt type from the 'Select Prompt Category' dropdown. This will load the relevant template and variables.",
   helpStep3Title: "3. Fill in the Variables",
-  helpStep3Desc: "Use the dropdown menus to select options for each variable. As you make selections, the 'Generated Prompt' on the right will update in real-time. Hover over a variable name to see a helpful tooltip.",
+  helpStep3Desc: "Use the dropdown menus, checkboxes, or color pickers to select options for each variable. As you make selections, the 'Generated Prompt' on the right will update in real-time. Hover over a variable name to see a helpful tooltip.",
   helpStep4Title: "4. Use Your Prompt",
   helpStep4Desc: "Once you are happy with the result, click the 'Copy' button to copy the prompt to your clipboard ready to paste into Google AI studio using Nano Banana. You can use 'Clear All' to reset your selections or 'Randomize' to quickly generate a new combination.",
   authorName: "Ibrahim A.I. Abdelhady",
   authorLinkedin: "https://www.linkedin.com/in/ibrahimabdelhady/",
   creatorName: "M. Ibrahim Salem",
   creatorLinkedin: "https://www.linkedin.com/in/mohamedibrahims/",
-  openInAIStudio: "Open Google AI Studio (Copy first!)",
+  openInAIStudio: "Open in Google AI Studio (Copy first!)",
 };
 
 const allPrompts = {
@@ -59,14 +62,14 @@ const allPrompts = {
         variables: [
             { name: "Building View Type", options: ["exterior building perspective", "interior room perspective", "aerial site view", "architectural render"] },
             { name: "Drawing Type", options: ["elevation drawing", "floor plan", "section view", "site plan"] },
-            { name: "Line Style", options: ["crisp, clean black", "thin, technical blue", "bold, uniform grey", "dashed construction"] },
+            { name: "Line Style", options: ["crisp, clean black", "thin, technical blue", "bold, uniform grey", "dashed construction"], type: "color", description: "Select a predefined style or pick a custom color." },
             { name: "Detail Level", options: ["No shading, no hatching, no textures, no people, no background context — only the building's architectural geometry.", "Minimal hatching for material differentiation, no people or context.", "Basic furniture outlines and room labels, no textures.", "Full construction details including dimensions and annotations."] }
         ]
     },
     "Real Life to 3D Model": {
-        template: "Convert this [Input Type] into a 3D physical model style representation. Preserve the proportions, geometry, and spatial layout exactly as in the render. Represent the design as a [Model Style] study model with clean, sharp edges and smooth surfaces. Place it against a [Background Setting] with [Lighting Style]. [Detail Constraints]. The result should look like a professional architectural model photograph, minimal and precise.",
+        template: "Convert this [Input Type] into a 3D physical model style representation. Preserve the proportions, geometry, and spatial layout exactly as in the original image. Represent the design as a [Model Style] study model with clean, sharp edges and smooth surfaces. Place it against a [Background Setting] with [Lighting Style]. [Detail Constraints]. The result should look like a professional architectural model photograph, minimal and precise.",
         variables: [
-            { name: "Input Type", options: ["photorealistic render", "architectural photograph", "hand-drawn sketch", "CAD drawing"] },
+            { name: "Input Type", options: ["photograph of a building exterior", "photograph of an interior space", "aerial drone photograph of a site", "street-level photograph of a building"] },
             { name: "Model Style", options: ["monochrome white", "light grey textured", "wooden grain", "transparent acrylic"] },
             { name: "Background Setting", options: ["plain seamless white background", "neutral grey studio background", "simple black backdrop", "minimalist wooden surface"] },
             { name: "Lighting Style", options: ["soft neutral studio lighting", "dramatic overhead lighting", "bright, even ambient lighting", "backlit with subtle shadows"] },
@@ -84,7 +87,7 @@ const allPrompts = {
             { name: "Camera Lens Type", options: ["35 mm lens", "50 mm standard lens", "24 mm wide-angle lens", "85 mm portrait lens"] },
             { name: "Camera Height", options: ["eye level (1.6 m)", "bird's-eye view (10 m)", "worm's-eye view (0.5 m)", "elevated perspective (3 m)"] },
             { name: "Perspective Type", options: ["natural perspective", "dynamic dramatic perspective", "flat orthographic perspective", "intimate close-up perspective"] },
-            { name: "Scene Elements", options: ["walking people and cars", "minimal vegetation and subtle background elements", "active street life with bustling crowds", "tranquil setting with sparse figures"] }
+            { name: "Scene Elements", options: ["walking people and cars", "minimal vegetation and subtle background elements", "active street life with bustling crowds", "tranquil setting with sparse figures"], description: "Choose elements to include in the rendered scene.", type: "multiselect" }
         ]
     },
     "2D to 3D Sections": {
@@ -253,6 +256,71 @@ const allPrompts = {
             { name: "specific material types / details", options: ["Shou Sugi Ban cedar", "Corten steel rainscreen", "vertical Ipe wood slats", "large format porcelain panels"] },
             { name: "composition / organization style", options: ["clean grid layout", "organic collage style", "minimal single-focus layout", "triptych composition"] }
         ]
+    },
+    "Sustainable & Biophilic Tower Design": {
+        template: "A photorealistic render of a [Building Type] with a core concept of [Core Concept]. The design's key feature is a [Key Feature], supported by sustainable systems like a [Sustainable Systems]. The material palette is dominated by [Material Palette]. The building is situated in a [Setting], visualized during a [Time of Day/Weather] in a [Render Style] style.",
+        variables: [
+            { name: "Building Type", options: ["sustainable skyscraper", "mixed-use biophilic tower", "residential high-rise"], description: "The primary function and scale of the building." },
+            { name: "Core Concept", options: ["biophilic design principles", "net-zero energy performance", "living building challenge standards", "urban biodiversity"], description: "The guiding philosophy behind the sustainable design." },
+            { name: "Key Feature", options: ["cascading green facades", "integrated vertical gardens on sky bridges", "a rooftop urban farm and conservatory", "a central atrium with a living wall"], description: "The most prominent visual element of the biophilic design." },
+            { name: "Sustainable Systems", options: ["rainwater harvesting and greywater recycling system", "a building-integrated photovoltaic skin", "geothermal heating and cooling", "passive ventilation louvers"], description: "Specific technologies integrated for sustainability." },
+            { name: "Material Palette", options: ["cross-laminated timber (CLT) and recycled steel", "locally sourced stone and bamboo", "green concrete and high-performance glazing", "recycled composite panels"], description: "The primary materials used for construction and cladding." },
+            { name: "Setting", options: ["dense urban core", "revitalized waterfront district", "suburban tech campus", "a new eco-city"], description: "The surrounding context of the project." },
+            { name: "Time of Day/Weather", options: ["bright sunny day", "overcast with soft, diffuse light", "dramatic golden hour", "early morning mist"], description: "The time and atmospheric conditions of the rendering." },
+            { name: "Render Style", options: ["hyper-realistic with lush, detailed greenery", "conceptual, highlighting energy and water flow diagrams", "cinematic and atmospheric with dramatic lighting", "stylized architectural illustration"], description: "The overall visual style of the final image." }
+        ]
+    },
+    "Adaptive Reuse of Industrial Heritage": {
+        template: "An interior perspective render showing the [New Function] within a converted [Original Building]. The core architectural intervention is the [Architectural Intervention]. A key feature is the [Key Interior Feature], and the space is defined by a [Material Palette]. The scene is illuminated by [Lighting] to create a [Mood] atmosphere. The viewpoint is a [Viewpoint].",
+        variables: [
+            { name: "Original Building", options: ["historic brick warehouse", "disused concrete power station", "old textile mill with large windows", "a cluster of industrial silos"], description: "The type of heritage building being repurposed." },
+            { name: "New Function", options: ["contemporary art gallery and cultural hub", "industrial-chic boutique hotel", "vibrant co-working and maker space", "spacious residential lofts"], description: "The new use for the adapted building." },
+            { name: "Architectural Intervention", options: ["a sharp juxtaposition of modern glass and steel against old brick", "careful preservation of original machinery as sculptural elements", "insertion of a new CLT structure within the existing shell", "a dramatic new sculptural staircase"], description: "The main design move that blends new with old." },
+            { name: "Key Interior Feature", options: ["a soaring double-height atrium with new skylights", "exposed original steel trusses and columns", "cantilevered mezzanine levels overlooking the main space", "a network of glass walkways"], description: "A standout element within the interior space." },
+            { name: "Material Palette", options: ["exposed original brick, weathered steel, and polished concrete floors", "reclaimed wood, blackened steel, and large glass panes", "raw concrete, corten steel, and warm oak", "white-washed walls, light wood, and preserved industrial artifacts"], description: "The dominant materials that define the interior aesthetic." },
+            { name: "Lighting", options: ["dramatic spotlights highlighting original textures", "warm, ambient light creating an inviting atmosphere", "floods of natural light from large new window openings", "a combination of historic fixtures and modern track lighting"], description: "The lighting strategy for the space." },
+            { name: "Mood", options: ["gritty and authentic", "sleek and sophisticated", "warm and historic", "bright and creative"], description: "The overall feeling or atmosphere of the rendered image." },
+            { name: "Viewpoint", options: ["street-level exterior showing the new entrance", "wide interior perspective showing the blend of old and new", "a detailed sectional cutaway revealing the internal layout", "a close-up on a specific material junction"], description: "The camera angle and composition of the render." }
+        ]
+    },
+    "Parametric & Algorithmic Facade": {
+        template: "A [Viewpoint] of a [Building Type] featuring a parametric facade. The facade's [Parametric Logic] generates a [Geometric Pattern] using a [Material System]. The [Color Palette] and [Lighting Condition] emphasize its complex form. The overall style is [Overall Style].",
+        variables: [
+            { name: "Building Type", options: ["futuristic skyscraper", "contemporary art museum", "university science building", "major transportation hub"], description: "The building typology where the facade is applied." },
+            { name: "Parametric Logic", options: ["that responds to solar orientation for dynamic shading", "that varies in opacity based on interior programmatic needs", "that mimics natural patterns through biomimicry", "that creates a dynamic moiré effect as you move past it"], description: "The rule or data that drives the facade's design." },
+            { name: "Geometric Pattern", options: ["a complex Voronoi pattern", "an intricate hexagonal grid", "a series of undulating wave-like forms", "fractal or crystalline structures"], description: "The underlying geometric language of the facade." },
+            { name: "Material System", options: ["laser-cut perforated aluminum panels", "a series of kinetic, rotating shading fins", "custom 3D-printed concrete modules", "translucent fritted glass with a variable pattern"], description: "The physical materials and construction of the facade." },
+            { name: "Color Palette", options: ["monochromatic metallic (silver, bronze, copper)", "a smooth gradient of two or more colors", "a stark matte white to emphasize shadow", "a glossy, high-contrast black"], description: "The color scheme of the facade material." },
+            { name: "Lighting Condition", options: ["harsh, direct sunlight creating complex, sharp shadows", "diffuse, overcast light that emphasizes the pure form", "being dramatically backlit at night to reveal the pattern", "streaks of evening light catching the edges"], description: "How the facade is lit to best showcase its features." },
+            { name: "Viewpoint", options: ["an extreme close-up on a single facade module", "a full, flat elevation view of the facade", "a dramatic worm's-eye view looking up the tower", "an angled perspective showing the depth of the components"], description: "The camera position for the rendering." },
+            { name: "Overall Style", options: ["abstract and futuristic", "highly technical and detailed", "elegant and sculptural", "minimalist and clean"], description: "The final aesthetic goal of the image." }
+        ]
+    },
+    "Community-Centric Co-Living Hub": {
+        template: "A [Render Style] render of a [Building Scale] co-living project. The heart of the community is its [Primary Communal Space]. The project has a [Architectural Style] aesthetic, with a facade of [Facade Material] and a [Key Feature] that encourages interaction. The design emphasizes [Landscape Integration] to create a [Atmosphere] atmosphere.",
+        variables: [
+            { name: "Building Scale", options: ["dense urban mid-rise block", "a converted industrial warehouse", "a cluster of low-rise pavilions connected by walkways", "a vertical tower with shared 'neighborhood' floors"], description: "The size and form of the co-living building." },
+            { name: "Primary Communal Space", options: ["a lush central courtyard garden", "a rooftop terrace with a kitchen, BBQ, and social spaces", "a large, open-plan shared kitchen and dining hall", "a multi-purpose workshop and maker space"], description: "The main shared area that forms the social heart of the project." },
+            { name: "Architectural Style", options: ["Scandinavian minimalist with clean lines", "industrial loft with exposed services", "warm contemporary using natural materials", "playful and colorful with bold geometric forms"], description: "The overall design language of the building." },
+            { name: "Facade Material", options: ["light-colored brick with large window openings", "natural wood slat screening and cladding", "raw concrete with timber accents", "colorful corrugated metal panels"], description: "The primary exterior material." },
+            { name: "Key Feature", options: ["a network of interconnecting 'social' bridges", "large, shared balconies that cantilever from the facade", "a ground floor that is open and permeable to the public", "a dramatic central staircase designed for chance encounters"], description: "A specific architectural element that fosters community." },
+            { name: "Landscape Integration", options: ["communal edible gardens and planters", "native, low-water landscaping", "permeable paving and integrated bioswales for stormwater", "seamless indoor-outdoor connections with sliding glass walls"], description: "How nature and landscape are incorporated." },
+            { name: "Atmosphere", options: ["vibrant and social", "calm and restorative", "creative and collaborative", "cozy and home-like"], description: "The desired mood and feeling of the community." },
+            { name: "Render Style", options: ["photorealistic, populated with diverse groups of people", "a warm, lifestyle magazine aesthetic", "a clear axonometric diagram showing social connections", "a soft, watercolor illustration style"], description: "The visual style of the final image." }
+        ]
+    },
+    "Disaster-Resilient Modular Housing": {
+        template: "A [Visualization Style] of a modular housing project designed for a [Environmental Hazard] environment. The units are built with a [Structural System] and can be configured using a [Modularity] approach. They include key [Resilient Features] and are built from a [Material Palette]. The project is shown in a [Setting] to convey a [Mood] feeling.",
+        variables: [
+            { name: "Environmental Hazard", options: ["hurricane and flood-prone coastal region", "high-risk seismic activity zone", "wildfire-urban interface area", "extreme heat and desert conditions"], description: "The primary natural disaster the housing is designed to withstand." },
+            { name: "Structural System", options: ["an elevated stilt structure to rise above flood levels", "a robust steel frame with seismic dampers", "non-combustible concrete and metal cladding", "super-insulated walls with minimal thermal bridging"], description: "The core structural approach for resilience." },
+            { name: "Modularity", options: ["prefabricated individual pods that can be clustered together", "an interlocking panelized system for rapid assembly", "stackable container-based units for density", "a kit-of-parts that can be locally assembled"], description: "The method of prefabrication and construction." },
+            { name: "Resilient Features", options: ["deployable hurricane shutters", "an integrated rainwater collection and filtration system", "off-grid solar power with battery storage", "a green roof for insulation and water management", "a fire-suppression sprinkler system"], type: "multiselect", description: "Specific technologies for self-sufficiency and safety." },
+            { name: "Material Palette", options: ["galvanized steel and fiber cement board", "bamboo composites and recycled plastics", "rammed earth and fire-resistant timber", "corten steel and polycarbonate panels"], description: "The primary materials chosen for durability and sustainability." },
+            { name: "Setting", options: ["a rebuilt coastal community after a storm", "a new, organized settlement in a remote area", "an emergency housing camp with units being deployed", "a prototype demonstration in a testing facility"], description: "The context in which the housing is shown." },
+            { name: "Visualization Style", options: ["technical exploded axonometric showing all components", "a hopeful rendering of a thriving, rebuilt community", "a step-by-step infographic of the assembly process", "a dramatic shot of the housing withstanding a storm"], description: "The way the project is presented visually." },
+            { name: "Mood", options: ["secure and protective", "hopeful and innovative", "functional and pragmatic", "community-focused and collaborative"], description: "The emotional tone of the image." }
+        ]
     }
   },
   "Interior Design": {
@@ -303,6 +371,63 @@ const allPrompts = {
             { name: "Lighting/Time", options: ["refreshing morning", "relaxing evening", "spa-like ambiance"] },
             { name: "Space Type/Style", options: ["contemporary master bathroom", "compact urban powder room", "spacious wellness spa bathroom"] }
         ]
+    },
+    "Adaptive Reuse: Warehouse Loft Conversion": {
+        template: "Create a photorealistic interior render of a [Style] residential loft within a converted [Building Feature] industrial warehouse. The design should feature a [Key Element] and a material palette of [Material Palette]. The space is illuminated by [Lighting Type] to create a [Mood] atmosphere, captured from a [Viewpoint].",
+        variables: [
+            { name: "Style", options: ["Industrial chic", "Modern minimalist", "Bohemian eclectic"] },
+            { name: "Building Feature", options: ["high ceilings and exposed brick", "large timber beams and columns", "concrete floors and steel trusses"] },
+            { name: "Key Element", options: ["a mezzanine-level bedroom overlooking the main living space", "a large open-plan kitchen with a central island", "a sculptural steel staircase connecting floors"] },
+            { name: "Material Palette", options: ["reclaimed wood, blackened steel, and polished concrete", "warm textiles, leather, and original brick", "sleek white cabinetry, stainless steel, and glass"] },
+            { name: "Lighting Type", options: ["floods of natural light from massive original windows", "a combination of track lighting and warm pendant lamps", "dramatic uplighting on architectural features"] },
+            { name: "Mood", options: ["cozy and inviting", "sophisticated and artistic", "raw and authentic"] },
+            { name: "Viewpoint", options: ["wide shot from the main entrance", "view from the mezzanine looking down", "close-up of the kitchen and dining area"] }
+        ]
+    },
+    "Home Remodeling: Kitchen & Dining Extension": {
+        template: "Visualize a [Style] kitchen and dining room extension to an existing [House Type] house. The design opens up to the garden via [Garden Connection]. The new kitchen features [Cabinetry Style] and a [Countertop Material]. The overall color scheme is [Color Palette], creating a [Ambiance] feeling.",
+        variables: [
+            { name: "Style", options: ["contemporary open-plan", "Scandinavian-inspired", "traditional farmhouse"] },
+            { name: "House Type", options: ["Victorian terraced", "1970s suburban", "modern detached"] },
+            { name: "Garden Connection", options: ["large sliding glass doors", "bi-folding doors that fully open", "a picture window with a window seat"] },
+            { name: "Cabinetry Style", options: ["handleless flat-panel cabinets", "classic Shaker-style doors", "minimalist plywood cabinetry"] },
+            { name: "Countertop Material", options: ["polished marble island", "durable quartz countertops", "warm butcher block wood"] },
+            { name: "Color Palette", options: ["neutral and calming (whites, greys, woods)", "bold and dramatic (dark blues, greens)", "light and airy (pastels, light wood)"] },
+            { name: "Ambiance", options: ["bright and family-friendly", "elegant and perfect for entertaining", "cozy and relaxed"] }
+        ]
+    },
+    "Sustainable & Biophilic Home Office": {
+        template: "Design a [Workspace Type] home office with a strong focus on biophilic design. The space incorporates [Natural Elements] and uses a material palette of [Sustainable Materials]. The key furniture piece is a [Desk Type], and the space is lit by [Lighting] to promote a [Atmosphere] environment.",
+        variables: [
+            { name: "Workspace Type", options: ["dedicated study room", "a nook within a living area", "a garden office pod"] },
+            { name: "Natural Elements", options: ["a living green wall", "numerous potted plants and hanging vines", "large windows with views of nature"] },
+            { name: "Sustainable Materials", options: ["reclaimed wood, bamboo flooring, and recycled plastic acoustic panels", "cork walls, natural fiber rugs, and low-VOC paints"] },
+            { name: "Desk Type", options: ["a large, solid oak standing desk", "a minimalist floating desk made from recycled materials", "a custom-built plywood workstation"] },
+            { name: "Lighting", options: ["abundant natural daylight supplemented with full-spectrum LED lighting", "warm, focused task lighting", "soft ambient light"] },
+            { name: "Atmosphere", options: ["calm and focused", "creative and inspiring", "productive and energizing"] }
+        ]
+    },
+    "Retail Concept: Pop-Up Shop Design": {
+        template: "Generate a concept visualization for a [Brand Type] pop-up shop. The design is based on a [Design Concept] and uses a [Structural System]. Key features include [Display Feature] and [Interactive Element]. The lighting and color scheme of [Lighting & Color] are used to create a [Brand Feel] experience.",
+        variables: [
+            { name: "Brand Type", options: ["luxury fashion", "sustainable lifestyle products", "innovative tech gadget"] },
+            { name: "Design Concept", options: ["modular and adaptable", "immersive and experiential", "minimalist and product-focused"] },
+            { name: "Structural System", options: ["a system of interlocking plywood modules", "a lightweight metal scaffolding frame", "a series of custom-printed fabric walls"] },
+            { name: "Display Feature", options: ["custom-designed shelving that reflects the brand's logo", "sculptural mannequins or product stands", "clothing hung from suspended branches"] },
+            { name: "Interactive Element", options: ["a digital screen for custom orders", "a photo booth with branded backdrops", "a product testing station"] },
+            { name: "Lighting & Color", options: ["bright, even lighting with a vibrant color palette", "dramatic spotlights with a monochromatic scheme", "neon lights and bold graphics"] },
+            { name: "Brand Feel", options: ["playful and energetic", "exclusive and sophisticated", "futuristic and clean"] }
+        ]
+    },
+    "Hospitality Design: Boutique Hotel Lobby": {
+        template: "Create an interior render of a [Style] boutique hotel lobby. The focal point is the [Focal Point]. The space includes a comfortable [Seating Area] and is defined by a material palette of [Material Palette]. The lighting is designed to be [Lighting Mood], creating a memorable first impression.",
+        variables: [
+            { name: "Style", options: ["Art Deco glamour", "cozy Scandinavian hygge", "eclectic bohemian", "modern luxury"] },
+            { name: "Focal Point", options: ["a sculptural reception desk made of marble", "a large-scale contemporary art installation", "a grand, cascading chandelier"] },
+            { name: "Seating Area", options: ["plush velvet sofas and armchairs", "minimalist leather benches", "a collection of vintage and modern seating"] },
+            { name: "Material Palette", options: ["brass accents, rich jewel tones, and dark wood", "light oak, wool textiles, and warm ceramics", "natural textures, patterned tiles, and lots of plants"] },
+            { name: "Lighting Mood", options: ["warm, intimate, and welcoming", "bright, airy, and uplifting", "dramatic and moody"] }
+        ]
     }
   },
   "Urban Design": {
@@ -342,7 +467,7 @@ const allPrompts = {
           template: "Redesign the existing [Space Type] from the attached reference images, incorporating [Incorporated Elements] with a [Design Style] style. Render this as a realistic [Activity/Time] photograph, showcasing enhanced [Enhancements].",
           variables: [
               { name: "Space Type", options: ["pedestrian walkway", "public plaza", "shaded promenade", "bustling market square"] },
-              { name: "Incorporated Elements", options: ["innovative shading solutions", "vibrant native flora", "interactive water features", "multi-sensory public art", "sustainable material pathways"] },
+              { name: "Incorporated Elements", options: ["innovative shading solutions", "vibrant native flora", "interactive water features", "multi-sensory public art", "sustainable material pathways"], description: "Select one or more elements to incorporate into the design.", type: "multiselect" },
               { name: "Design Style", options: ["futuristic aesthetic", "minimalist approach", "traditional craftsmanship", "biophilic design", "adaptable modular system"] },
               { name: "Activity/Time", options: ["early morning serenity", "bustling midday activity", "ambient evening glow", "dynamic nighttime event"] },
               { name: "Enhancements", options: ["integrated smart lighting designs", "ergonomic and communal seating arrangements", "large-scale sculptural art installations", "permeable paving with stormwater management"] }
@@ -365,6 +490,37 @@ const allPrompts = {
               { name: "Structure Type", options: ["heritage building storefront", "neglected urban underpass", "residential property exterior"] },
               { name: "Intervention Type", options: ["restoration", "adaptive reuse", "contemporary renovation"] }
           ]
+      },
+      "Smart & Sustainable Transit Hub": {
+          template: "Visualize a next-generation, multi-modal transit hub in a [Urban Context]. The design integrates [Smart Technologies] and is defined by a [Primary Structure] made from [Sustainable Materials]. The surrounding public realm includes [Public Realm Features] and is designed to create a [Atmosphere] for commuters and residents.",
+          variables: [
+              { name: "Urban Context", options: ["dense city center", "revitalized industrial zone", "suburban town center"], description: "The location and density of the transit hub." },
+              { name: "Smart Technologies", options: ["real-time transit data displays", "integrated autonomous shuttle docks", "kinetic energy harvesting floor tiles", "smart waste management bins"], description: "Select technologies to integrate into the hub.", type: "multiselect" },
+              { name: "Primary Structure", options: ["a sweeping parametric canopy", "a series of interconnected glass pavilions", "a minimalist concrete and timber structure"], description: "The main architectural form of the hub." },
+              { name: "Sustainable Materials", options: ["mass timber (CLT)", "recycled steel and high-performance glazing", "photovoltaic-integrated panels"], description: "The key materials used for construction." },
+              { name: "Public Realm Features", options: ["a vibrant public plaza with seating", "seamlessly integrated bike lanes and storage", "pop-up retail kiosks and cafes"], description: "Features in the surrounding public space." },
+              { name: "Atmosphere", options: ["efficient and futuristic", "welcoming and community-focused", "green and tranquil"], description: "The overall mood of the final image." }
+          ]
+      },
+      "Tactical Urbanism: Pop-Up Park": {
+          template: "Design a temporary pop-up park on a [Location Type]. The intervention uses [Key Materials] to create [Programmatic Elements]. The project's visual identity is defined by a [Color & Graphic Style], aiming to create a [Desired Vibe] for the neighborhood.",
+          variables: [
+              { name: "Location Type", options: ["neglected parking lot", "underused city street", "vacant urban plot"], description: "The site for the temporary intervention." },
+              { name: "Key Materials", options: ["painted shipping pallets and tires", "modular plywood seating", "colorful tensile fabric canopies"], description: "The primary low-cost, high-impact materials." },
+              { name: "Programmatic Elements", options: ["an outdoor reading area with bookshelves", "a small stage for performances", "community garden planters", "interactive games like giant chess"], description: "Activities and features included in the park.", type: "multiselect" },
+              { name: "Color & Graphic Style", options: ["bold, supergraphic-inspired patterns on the ground", "a natural, pastel color palette", "bright, monochromatic color blocking"], description: "The visual style of the pop-up." },
+              { name: "Desired Vibe", options: ["playful and energetic", "relaxing and contemplative", "social and interactive"], description: "The intended atmosphere of the space." }
+          ]
+      },
+      "Waterfront Revitalization": {
+          template: "A photorealistic render of a revitalized post-industrial waterfront. The design reconnects the city to the water through a [Key Design Move]. It features [Landscape Strategy] and includes [Programmatic Amenities]. The material palette of [Material Palette] reflects the site's history while creating a [Overall Mood].",
+          variables: [
+              { name: "Key Design Move", options: ["a series of terraced steps leading to the water's edge", "a floating boardwalk and ecological park", "a wide, tree-lined promenade with piers"], description: "The primary design element connecting city and water." },
+              { name: "Landscape Strategy", options: ["native coastal planting and restored wetlands", "formal promenades with manicured lawns", "a series of interconnected rain gardens"], description: "The approach to planting and green space." },
+              { name: "Programmatic Amenities", options: ["a kayak launch and boat rental", "an outdoor amphitheater", "children's water play features", "public art installations"], description: "Activities and attractions for the public.", type: "multiselect" },
+              { name: "Material Palette", options: ["weathered steel, reclaimed timber, and board-formed concrete", "light-colored stone, stainless steel, and durable composites"], description: "The materials used for paths, seating, and structures." },
+              { name: "Overall Mood", options: ["vibrant and active", "natural and restorative", "historically reflective and peaceful"], description: "The final feeling of the rendered scene." }
+          ]
       }
   }
 };
@@ -378,6 +534,7 @@ let state = {
     subCategory: '',
     variables: {},
     generatedPrompt: '...',
+    searchQuery: '',
     theme: 'light',
     confirmation: {
         isOpen: false,
@@ -400,7 +557,12 @@ const helpView = document.getElementById('help-view');
 const allViews = [mainView, generatorView, helpView];
 
 const mainTitle = document.getElementById('main-title');
+const searchInput = document.getElementById('search-input');
+const noResultsMessage = document.getElementById('no-results-message');
+const noResultsTitle = document.getElementById('no-results-title');
+const noResultsText = document.getElementById('no-results-text');
 const categoryCardsContainer = document.getElementById('category-cards-container');
+const searchResultsContainer = document.getElementById('search-results-container');
 const mainViewFooter = document.getElementById('main-view-footer');
 
 const backToMainBtn = document.getElementById('back-to-main-btn');
@@ -448,8 +610,19 @@ function updateGeneratedPrompt() {
         subCategoryData.variables.forEach(v => {
             const value = state.variables[v.name];
             const placeholder = `[${v.name}]`;
-            // Using split/join for safe replacement of placeholders without regex issues.
-            promptText = promptText.split(placeholder).join(value || placeholder);
+            let replacement = value || placeholder;
+
+            if (Array.isArray(value)) {
+                if (value.length === 0) {
+                    replacement = placeholder;
+                } else if (value.length === 1) {
+                    replacement = value[0];
+                } else {
+                    replacement = value.slice(0, -1).join(', ') + ' and ' + value.slice(-1);
+                }
+            }
+            
+            promptText = promptText.split(placeholder).join(replacement);
         });
         state.generatedPrompt = promptText;
     } else {
@@ -458,25 +631,94 @@ function updateGeneratedPrompt() {
     generatedPromptOutput.textContent = state.generatedPrompt;
 }
 
-function createSelectInputHTML(id, label, options, placeholder, tooltip) {
-    const optionsHTML = options.map(opt => `<option value="${opt.value}">${opt.label}</option>`).join('');
-    return `
-        <div class="flex flex-col space-y-2">
-            <div class="relative group w-fit">
-                <label for="${id}" class="text-sm font-medium text-slate-700 dark:text-slate-300">
-                    <span class="${tooltip ? 'border-b border-dotted border-slate-500 dark:border-slate-400 cursor-help' : ''}">${label}</span>
-                </label>
-                ${tooltip ? `
-                    <div role="tooltip" class="absolute bottom-full left-1/2 z-20 -translate-x-1/2 mb-2 w-max max-w-sm p-3 text-sm text-slate-100 bg-slate-900 dark:bg-slate-700 rounded-lg shadow-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 invisible group-hover:visible">
-                        ${tooltip}
-                        <div class="absolute left-1/2 -translate-x-1/2 top-full w-0 h-0 border-x-4 border-x-transparent border-t-4 border-t-slate-900 dark:border-t-slate-700"></div>
-                    </div>
-                ` : ''}
+function createVariableControl(variable) {
+    const { name, options, description, type } = variable;
+    const id = `var-${name.replace(/\s+/g, '-')}`;
+
+    const labelHTML = `
+        <div class="relative group w-fit">
+            <label class="text-sm font-medium text-slate-700 dark:text-slate-300">
+                <span class="${description ? 'border-b border-dotted border-slate-500 dark:border-slate-400 cursor-help' : ''}">${name}</span>
+            </label>
+            ${description ? `
+                <div role="tooltip" class="absolute bottom-full left-1/2 z-20 -translate-x-1/2 mb-2 w-max max-w-sm p-3 text-sm text-slate-100 bg-slate-900 dark:bg-slate-700 rounded-lg shadow-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 invisible group-hover:visible">
+                    ${description}
+                    <div class="absolute left-1/2 -translate-x-1/2 top-full w-0 h-0 border-x-4 border-x-transparent border-t-4 border-t-slate-900 dark:border-t-slate-700"></div>
+                </div>
+            ` : ''}
+        </div>
+    `;
+
+    let inputHTML = '';
+
+    if (type === 'multiselect') {
+        const checkboxesHTML = options.map(opt => `
+            <label class="flex items-center space-x-3 p-2 rounded-md hover:bg-slate-100 dark:hover:bg-slate-700/50 transition-colors duration-200 cursor-pointer">
+                <input type="checkbox" name="${id}" value="${opt}" class="h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 dark:bg-slate-900 dark:border-slate-600 dark:checked:bg-indigo-500 dark:checked:border-indigo-500">
+                <span class="text-sm text-slate-600 dark:text-slate-300">${opt}</span>
+            </label>
+        `).join('');
+        inputHTML = `
+            <div id="${id}" class="space-y-1 border border-slate-300 dark:border-slate-600 rounded-lg p-2 max-h-48 overflow-y-auto bg-white dark:bg-slate-700/30 shadow-sm">
+                ${checkboxesHTML}
             </div>
+        `;
+    } else if (type === 'color') {
+        const optionsHTML = options.map(opt => `<option value="${opt}">${opt}</option>`).join('');
+        inputHTML = `
+            <div class="flex items-center space-x-2">
+                <div class="relative flex-grow">
+                    <select id="${id}" name="${id}" class="appearance-none block w-full pl-3 pr-10 py-2 text-base border border-slate-300 bg-white dark:bg-slate-700 dark:border-slate-600 dark:placeholder-slate-400 dark:text-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-lg shadow-sm transition">
+                        <option value="">Select ${name}</option>
+                        ${optionsHTML}
+                        <option value="custom">Custom Color...</option>
+                    </select>
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-slate-700 dark:text-slate-400">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l4-4 4 4m0 6l-4 4-4-4"></path></svg>
+                    </div>
+                </div>
+                <input type="color" id="${id}-color-picker" class="w-10 h-10 p-1 bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg shadow-sm cursor-pointer hidden" value="#563d7c">
+            </div>
+        `;
+    } else { // Default single select
+        const optionsHTML = options.map(opt => `<option value="${opt}">${opt}</option>`).join('');
+        inputHTML = `
             <div class="relative">
                 <select id="${id}" name="${id}" class="appearance-none block w-full pl-3 pr-10 py-2 text-base border border-slate-300 bg-white dark:bg-slate-700 dark:border-slate-600 dark:placeholder-slate-400 dark:text-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-lg shadow-sm transition">
-                    <option value="">${placeholder}</option>
+                    <option value="">Select ${name}</option>
                     ${optionsHTML}
+                </select>
+                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-slate-700 dark:text-slate-400">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l4-4 4 4m0 6l-4 4-4-4"></path></svg>
+                </div>
+            </div>
+        `;
+    }
+
+    return `
+        <div class="flex flex-col space-y-2">
+            ${labelHTML}
+            ${inputHTML}
+        </div>
+    `;
+}
+
+
+function renderGenerator() {
+    generatorMainCategory.textContent = state.mainCategory;
+
+    // Render Sub-category select
+    const subCategories = allPrompts[state.mainCategory] || {};
+    const subCategoryOptions = Object.keys(subCategories).map(key => ({ label: key, value: key }));
+
+    // Re-using createVariableControl for a consistent look, even though it's a simple select
+    const subCategorySelectHTML = `
+        <div class="flex flex-col space-y-2">
+            <label for="sub-category-select" class="text-sm font-medium text-slate-700 dark:text-slate-300">${uiText.selectPromptCategory}</label>
+            <div class="relative">
+                <select id="sub-category-select" name="sub-category-select" class="appearance-none block w-full pl-3 pr-10 py-2 text-base border border-slate-300 bg-white dark:bg-slate-700 dark:border-slate-600 dark:placeholder-slate-400 dark:text-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-lg shadow-sm transition">
+                    <option value="">${uiText.selectPromptCategory}</option>
+                    ${subCategoryOptions.map(opt => `<option value="${opt.value}">${opt.label}</option>`).join('')}
                 </select>
                 <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-slate-700 dark:text-slate-400">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l4-4 4 4m0 6l-4 4-4-4"></path></svg>
@@ -484,49 +726,73 @@ function createSelectInputHTML(id, label, options, placeholder, tooltip) {
             </div>
         </div>
     `;
-}
+    subCategorySelectContainer.innerHTML = subCategorySelectHTML;
 
-function renderGenerator() {
-    generatorMainCategory.textContent = state.mainCategory;
-    
-    // Render Sub-category select
-    const subCategories = allPrompts[state.mainCategory] || {};
-    const subCategoryOptions = Object.keys(subCategories).map(key => ({ label: key, value: key }));
-    subCategorySelectContainer.innerHTML = createSelectInputHTML(
-        'sub-category-select', 
-        uiText.selectPromptCategory, 
-        subCategoryOptions,
-        uiText.selectPromptCategory
-    );
     const subCategorySelect = document.getElementById('sub-category-select');
     subCategorySelect.value = state.subCategory;
     subCategorySelect.addEventListener('change', handleSubCategoryChange);
 
-    // Render variable selects
+    // Render variable controls
     variablesContainer.innerHTML = '';
     const subCategoryData = subCategories[state.subCategory];
     if (subCategoryData) {
         variablesContainer.classList.add('animate-fade-in');
         subCategoryData.variables.forEach(variable => {
-            const varId = `var-${variable.name.replace(/\s+/g, '-')}`;
-            const options = variable.options.map(opt => ({ label: opt, value: opt }));
-            const selectHTML = createSelectInputHTML(
-                varId,
-                variable.name,
-                options,
-                `Select ${variable.name}`,
-                variable.description
-            );
-            variablesContainer.innerHTML += selectHTML;
+            const controlHTML = createVariableControl(variable);
+            variablesContainer.innerHTML += controlHTML;
         });
 
         // Add event listeners and set values
         subCategoryData.variables.forEach(variable => {
             const varId = `var-${variable.name.replace(/\s+/g, '-')}`;
-            const varSelect = document.getElementById(varId);
-            varSelect.value = state.variables[variable.name] || '';
-            varSelect.addEventListener('change', (e) => handleVariableChange(variable.name, e.target.value));
+
+            if (variable.type === 'multiselect') {
+                const checkboxes = document.querySelectorAll(`#${varId} input[type="checkbox"]`);
+                const currentValues = state.variables[variable.name] || [];
+                checkboxes.forEach(cb => {
+                    if (currentValues.includes(cb.value)) {
+                        cb.checked = true;
+                    }
+                    cb.addEventListener('change', () => {
+                        const selectedValues = Array.from(checkboxes)
+                            .filter(i => i.checked)
+                            .map(i => i.value);
+                        handleVariableChange(variable.name, selectedValues);
+                    });
+                });
+            } else if (variable.type === 'color') {
+                const varSelect = document.getElementById(varId);
+                const colorPicker = document.getElementById(`${varId}-color-picker`);
+                const currentValue = state.variables[variable.name] || '';
+
+                if (currentValue.startsWith('#')) {
+                    varSelect.value = 'custom';
+                    colorPicker.value = currentValue;
+                    colorPicker.classList.remove('hidden');
+                } else {
+                    varSelect.value = currentValue;
+                }
+
+                varSelect.addEventListener('change', (e) => {
+                    if (e.target.value === 'custom') {
+                        colorPicker.classList.remove('hidden');
+                        handleVariableChange(variable.name, colorPicker.value);
+                    } else {
+                        colorPicker.classList.add('hidden');
+                        handleVariableChange(variable.name, e.target.value);
+                    }
+                });
+                colorPicker.addEventListener('input', (e) => {
+                    handleVariableChange(variable.name, e.target.value);
+                });
+
+            } else {
+                const varSelect = document.getElementById(varId);
+                varSelect.value = state.variables[variable.name] || '';
+                varSelect.addEventListener('change', (e) => handleVariableChange(variable.name, e.target.value));
+            }
         });
+
         generatorActions.classList.remove('hidden');
     } else {
         variablesContainer.classList.remove('animate-fade-in');
@@ -537,33 +803,81 @@ function renderGenerator() {
 }
 
 function renderMainScreen() {
-    const categoryStats = Object.keys(allPrompts).reduce((acc, catKey) => {
-        acc[catKey] = { subcategories: Object.keys(allPrompts[catKey]).length };
-        return acc;
-    }, {});
+    const searchQuery = state.searchQuery.toLowerCase().trim();
 
-    const categories = [
-        { key: 'Architecture', title: uiText.architecture, desc: uiText.architectureDesc, icon: '<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>' },
-        { key: 'Interior Design', title: uiText.interiorDesign, desc: uiText.interiorDesignDesc, icon: '<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg>' },
-        { key: 'Urban Design', title: uiText.urbanDesign, desc: uiText.urbanDesignDesc, icon: '<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l5.447 2.724A1 1 0 0021 16.382V5.618a1 1 0 00-1.447-.894L15 7m-6 13v-6.5m6 6.5V7" /></svg>' }
-    ];
+    if (!searchQuery) {
+        categoryCardsContainer.classList.remove('hidden');
+        searchResultsContainer.classList.add('hidden');
+        noResultsMessage.classList.add('hidden');
+        
+        const categoryStats = Object.keys(allPrompts).reduce((acc, catKey) => {
+            acc[catKey] = { subcategories: Object.keys(allPrompts[catKey]).length };
+            return acc;
+        }, {});
 
-    categoryCardsContainer.innerHTML = categories.map(cat => `
-        <button data-category="${cat.key}" class="category-card group text-left bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 w-full flex flex-col justify-between">
-            <div>
-                <div class="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-lg flex items-center justify-center mb-4">${cat.icon}</div>
-                <h3 class="text-xl font-bold text-slate-800 dark:text-slate-100">${cat.title}</h3>
-                <p class="text-slate-600 dark:text-slate-400 mt-1">${cat.desc}</p>
-            </div>
-            <div class="mt-4 pt-4 border-t border-slate-200 dark:border-slate-700 text-sm">
-                <p class="text-slate-500 dark:text-slate-400"><strong class="text-slate-700 dark:text-slate-200">${categoryStats[cat.key]?.subcategories || 0}</strong> ${uiText.subcategories}</p>
-            </div>
-        </button>
-    `).join('');
-    document.querySelectorAll('.category-card').forEach(card => {
-        card.addEventListener('click', () => handleMainCategorySelect(card.dataset.category));
-    });
+        const allCategories = [
+            { key: 'Architecture', title: uiText.architecture, desc: uiText.architectureDesc, icon: '<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>' },
+            { key: 'Interior Design', title: uiText.interiorDesign, desc: uiText.interiorDesignDesc, icon: '<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg>' },
+            { key: 'Urban Design', title: uiText.urbanDesign, desc: uiText.urbanDesignDesc, icon: '<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l5.447 2.724A1 1 0 0021 16.382V5.618a1 1 0 00-1.447-.894L15 7m-6 13v-6.5m6 6.5V7" /></svg>' }
+        ];
+
+        categoryCardsContainer.innerHTML = allCategories.map(cat => `
+            <button data-category="${cat.key}" class="category-card group text-left bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 w-full flex flex-col justify-between">
+                <div>
+                    <div class="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-lg flex items-center justify-center mb-4">${cat.icon}</div>
+                    <h3 class="text-xl font-bold text-slate-800 dark:text-slate-100">${cat.title}</h3>
+                    <p class="text-slate-600 dark:text-slate-400 mt-1">${cat.desc}</p>
+                </div>
+                <div class="mt-4 pt-4 border-t border-slate-200 dark:border-slate-700 text-sm">
+                    <p class="text-slate-500 dark:text-slate-400"><strong class="text-slate-700 dark:text-slate-200">${categoryStats[cat.key]?.subcategories || 0}</strong> ${uiText.subcategories}</p>
+                </div>
+            </button>
+        `).join('');
+        document.querySelectorAll('.category-card').forEach(card => {
+            card.addEventListener('click', () => handleMainCategorySelect(card.dataset.category));
+        });
+    } else {
+        categoryCardsContainer.classList.add('hidden');
+        const searchResults = {};
+        Object.entries(allPrompts).forEach(([mainCat, subCats]) => {
+            const matchingSubCats = Object.keys(subCats).filter(subCatTitle =>
+                subCatTitle.toLowerCase().includes(searchQuery)
+            );
+            if (matchingSubCats.length > 0) {
+                searchResults[mainCat] = matchingSubCats;
+            }
+        });
+
+        if (Object.keys(searchResults).length === 0) {
+            noResultsMessage.classList.remove('hidden');
+            searchResultsContainer.classList.add('hidden');
+            searchResultsContainer.innerHTML = '';
+        } else {
+            noResultsMessage.classList.add('hidden');
+            searchResultsContainer.classList.remove('hidden');
+            searchResultsContainer.innerHTML = Object.entries(searchResults).map(([mainCat, subCats]) => `
+                <div class="mb-6">
+                  <h3 class="text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2 px-2">${mainCat}</h3>
+                  <div class="bg-white dark:bg-slate-800 rounded-lg shadow-md divide-y divide-slate-200 dark:divide-slate-700">
+                    ${subCats.map(subCat => `
+                      <button data-main-category="${mainCat}" data-sub-category="${subCat}" class="search-result-item w-full text-left p-4 hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors duration-200 flex justify-between items-center">
+                        <span class="text-slate-800 dark:text-slate-200">${subCat}</span>
+                        <svg class="w-5 h-5 text-slate-400 dark:text-slate-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                        </svg>
+                      </button>
+                    `).join('')}
+                  </div>
+                </div>
+            `).join('');
+            
+            document.querySelectorAll('.search-result-item').forEach(item => {
+                item.addEventListener('click', handleSearchResultClick);
+            });
+        }
+    }
 }
+
 
 function renderConfirmationDialog() {
     if (state.confirmation.isOpen) {
@@ -599,12 +913,15 @@ function resetState() {
     state.subCategory = '';
     state.variables = {};
     state.generatedPrompt = '...';
+    state.searchQuery = '';
 }
 
 function handleBackToMain() {
     resetState();
+    searchInput.value = '';
     state.currentView = 'main';
     updateView();
+    renderMainScreen();
 }
 
 function handleMainCategorySelect(category) {
@@ -613,6 +930,21 @@ function handleMainCategorySelect(category) {
     state.variables = {};
     state.generatedPrompt = '...';
     state.currentView = 'generator';
+    renderGenerator();
+    updateView();
+}
+
+function handleSearchResultClick(event) {
+    const button = event.currentTarget;
+    const mainCategory = button.dataset.mainCategory;
+    const subCategory = button.dataset.subCategory;
+
+    state.mainCategory = mainCategory;
+    state.subCategory = subCategory;
+    state.variables = {};
+    state.generatedPrompt = '...';
+    state.currentView = 'generator';
+
     renderGenerator();
     updateView();
 }
@@ -627,6 +959,11 @@ function handleSubCategoryChange(e) {
 function handleVariableChange(name, value) {
     state.variables[name] = value;
     updateGeneratedPrompt();
+}
+
+function handleSearchInput(e) {
+    state.searchQuery = e.target.value;
+    renderMainScreen();
 }
 
 function handleCopy() {
@@ -645,7 +982,7 @@ function handleClearAll() {
             const clearedVariables = {};
             if (allPrompts[state.mainCategory]?.[state.subCategory]) {
                 allPrompts[state.mainCategory][state.subCategory].variables.forEach(v => {
-                    clearedVariables[v.name] = '';
+                    clearedVariables[v.name] = v.type === 'multiselect' ? [] : '';
                 });
             }
             state.variables = clearedVariables;
@@ -665,8 +1002,20 @@ function handleRandomize() {
         onConfirm: () => {
             const randomVariables = { ...state.variables };
             subCategoryData.variables.forEach(v => {
-                const randomIndex = Math.floor(Math.random() * v.options.length);
-                randomVariables[v.name] = v.options[randomIndex];
+                if (v.type === 'multiselect') {
+                    // Select a random number of options
+                    const numToSelect = Math.floor(Math.random() * (v.options.length + 1));
+                    const shuffled = [...v.options].sort(() => 0.5 - Math.random());
+                    randomVariables[v.name] = shuffled.slice(0, numToSelect);
+                } else if (v.type === 'color') {
+                    // Stick to predefined options for randomization
+                    const options = v.options.filter(opt => opt !== 'custom');
+                    const randomIndex = Math.floor(Math.random() * options.length);
+                    randomVariables[v.name] = options[randomIndex];
+                } else {
+                    const randomIndex = Math.floor(Math.random() * v.options.length);
+                    randomVariables[v.name] = v.options[randomIndex];
+                }
             });
             state.variables = randomVariables;
             renderGenerator();
@@ -694,6 +1043,9 @@ function init() {
     appTitle.textContent = uiText.title;
     helpBtn.textContent = uiText.help;
     mainTitle.textContent = uiText.selectMainCategory;
+    searchInput.placeholder = uiText.searchPlaceholder;
+    noResultsTitle.textContent = uiText.noResultsTitle;
+    noResultsText.textContent = uiText.noResultsText;
     backBtnText.textContent = uiText.back;
     clearAllBtn.textContent = uiText.clearAll;
     randomizeBtn.textContent = uiText.randomize;
@@ -718,7 +1070,7 @@ function init() {
         <div class="space-y-6 text-slate-700 dark:text-slate-300">
             <div><h3 class="text-xl font-semibold mb-2">${uiText.helpStep1Title}</h3><p>${uiText.helpStep1Desc}</p></div>
             <div class="border-t pt-6 dark:border-slate-700"><h3 class="text-xl font-semibold mb-2">${uiText.helpStep2Title}</h3><p>${uiText.helpStep2Desc}</p></div>
-            <div class="border-t pt-6 dark:border-slate-700"><h3 class="text-xl font-semibold mb-2">${uiText.helpStep3Title}</h3><p>${uiText.helpStep3Desc}</p></div>
+            <div class="border-t pt-6 dark:border-slate-700"><h3 class="text-xl font-semibold mb-2">${uiText.helpStep3Title}</h3><p>${uiText.helpStep3Desc.replace('dropdown menus', 'dropdown menus, checkboxes, or color pickers')}</p></div>
             <div class="border-t pt-6 dark:border-slate-700"><h3 class="text-xl font-semibold mb-2">${uiText.helpStep4Title}</h3><p>${uiText.helpStep4Desc}</p></div>
         </div>`;
 
@@ -732,6 +1084,7 @@ function init() {
     themeToggleBtn.addEventListener('click', handleThemeToggle);
     helpBtn.addEventListener('click', () => { state.currentView = 'help'; updateView(); });
     backToMainBtn.addEventListener('click', handleBackToMain);
+    searchInput.addEventListener('input', handleSearchInput);
     copyBtn.addEventListener('click', handleCopy);
     clearAllBtn.addEventListener('click', handleClearAll);
     randomizeBtn.addEventListener('click', handleRandomize);
